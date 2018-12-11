@@ -43,6 +43,7 @@ app.get("/weather/:city/:count", (req, res, next) => {
             return console.dir(error);
         }
         util.log('Weather request SUCCESS!');
+        util.log('New Update!');
         res.send(body);
     });    
 });
