@@ -1,9 +1,13 @@
 var express = require('express');
 var request = require('request');
+var bodyParser = require("body-parser");
 var util = require('util');
 var pdf = require('html-pdf');
 
 var app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // allow cors
 app.use(function(req, res, next) {
@@ -66,7 +70,7 @@ app.post("/api/createpdf", (req, res, next) => {
 
     var x = "html-pdf test<hr /><h2>This is some html</h2>";
 
-    var html = x + data;
+    var html = x;
     var finalOptions = "";
 
     writeToPdf(html, finalOptions, function(err, stream) {
