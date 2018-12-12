@@ -62,22 +62,21 @@ app.get("/api/testdata", (req, res, next) => {
 });    
 
 app.post("/api/createpdf", (req, res, next) => {
+    util.log('pdf test request started ...');
+
     var dateTimeLog = req.body.dateTimeLog;
 
     console.log('-----');
     console.log(dateTimeLog);
     console.log('-----');
-    
-    util.log('pdf test request');
 
-    var x = "<h2>html-pdf test</h2><hr /><h3>This is hard coded html</h2><br />";
+    var x = "pdf test"
 
     var html = x + dateTimeLog;
     var finalOptions = "";
 
     writeToPdf(html, finalOptions, function(err, stream) {
         if (err) return res.status(500).send(err);
-        util.log("success!");
         stream.pipe(res);
     });    
 
