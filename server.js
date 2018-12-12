@@ -69,6 +69,7 @@ app.get("/test", (req, res, next) => {
     }
 
     res.send(x);
+});    
 
 // init
 var server = app.listen(3000, function () {
