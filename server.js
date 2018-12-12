@@ -1,6 +1,7 @@
 var express = require('express');
 var request = require('request');
 var util = require('util');
+var pdf = require('html-pdf');
 
 var app = express();
 
@@ -55,6 +56,33 @@ app.get("/api/testdata", (req, res, next) => {
     
     res.send(x);
 });    
+
+app.get("/api/createpdf", (req, res, next) => {
+    util.log('pdf test request started ...');
+
+    var x = "pdf test"
+
+    var html = x;
+    var finalOptions = "";
+
+    writeToPdf(html, finalOptions, function(err, stream) {
+        if (err) return res.status(500).send(err);
+        stream.pipe(res);
+    });    
+
+});
+
+// code from project
+function writeToPdf(html, options, callback) {
+	//logger.debug('########## html = ' + html);
+	if (html.indexOf('<script') == 1 || html.indexOf('<SCRIPT') == 1) {
+		//logger.debug('error - html containig malicious script tag');
+		//return res.status(500).send('error - html containig malicious script tag');
+		return callback('html containing malicious script tag');
+	}
+
+	pdf.create(html, options).toStream(callback);
+}
 
 // init
 var server = app.listen(3000, function () {
