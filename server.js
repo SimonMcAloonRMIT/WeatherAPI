@@ -58,7 +58,7 @@ app.get("/api/testdata", (req, res, next) => {
 });    
 
 app.post("/api/createpdf", (req, res, next) => {
-    let data = req.body;
+    var data = req.body;
     
     util.log(data);
     
