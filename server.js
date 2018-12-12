@@ -62,9 +62,11 @@ app.get("/api/testdata", (req, res, next) => {
 });    
 
 app.post("/api/createpdf", (req, res, next) => {
-    var data = req.body;
-    
-    util.log(data);
+    var dateTimeLog = req.body.dateTimeLog;
+
+    console.log('-----');
+    console.log(dateTimeLog);
+    console.log('-----');
     
     util.log('pdf test request');
 
