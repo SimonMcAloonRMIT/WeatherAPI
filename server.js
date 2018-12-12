@@ -51,7 +51,7 @@ app.get("/weather/:city/:count", (req, res, next) => {
 app.get("/api/testdata", (req, res, next) => {
     util.log('test request started ...');
 
-    var x = {"ircEvent": "PRIVMSG", "method": "newURI", "regex": "^http://.*"};
+    var x = {"Date": new Date(), "Data": "some test data"};
     
     res.send(x);
 });    
