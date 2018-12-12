@@ -1,7 +1,9 @@
+// npm init
+// npm install <package> --save
 var express = require('express');
-var request = require('request');
 var bodyParser = require("body-parser");
 var util = require('util');
+var request = require('request');
 var pdf = require('html-pdf');
 
 var app = express();
@@ -9,33 +11,43 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// allow cors
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+var htmlEncode = require('htmlencode');
+htmlEncode.EncodeType = 'numerical';
+
+// console.log('testApp');
+// console.log('-------');
+
+// // htmlencode test
+// var html = '<h1>Welcome</h1>';
+// var htmlEncoded = htmlEncode.htmlEncode(html);
+// console.log(html);
+// console.log(htmlEncoded);
+
+// var bulletin_Dsc = 'desc';
+
+// var exp=/^[\x20-\x7E\s\u2018\u2019\u201C\u201D\u2010-\u2014]+$/; // covers from ascii-x20 to \x7E, tab+whitespace,
+// var allowedDesc=exp.test(bulletin_Dsc);
+// var check1=(bulletin_Dsc.toLowerCase().indexOf('<script>')>-1)?true:false;
+// var check2=(bulletin_Dsc.toLowerCase().indexOf('</script>')>-1)?true:false;
+
+// console.log('bulletin_Dsc: ' + bulletin_Dsc);
+// console.log();
+// console.log('allowedDesc: ' + allowedDesc);
+// console.log('check1: ' + check1);
+// console.log('check2: ' + check2);
+// console.log();
+
+// if(bulletin_Dsc.length > 10000 || !allowedDesc  ||check1 || check2){
+//     console.log('Status: Fail');
+// } else {
+//     console.log('Status: Pass');
+// }
 
 app.get('/', function (req, res) {
-   res.send('hi');
-})
+    res.send('test 123');
+ });
 
-// test
-//app.get("/weather", (req, res, next) => {
-//    console.log('Weather request started (default) ...');
-//    request.get("http://api.openweathermap.org/data/2.5/forecast/daily?APPID=c81efb4703a5b8a67e164eb272a8f462&cnt=2&q=Ballarat", (error, response, body) => {
-//        if(error) {
-//            util.log('Weather request ERROR!');
-//            return console.dir(error);
-//        }
-//        util.log('Weather request SUCCESS!');
-//        res.send(body);
-//    });    
-//});
-
-// for a given city and count
-app.get("/weather/:city/:count", (req, res, next) => {
-    //console.log(new Date);
+ app.get("/weather/:city/:count", (req, res, next) => {
     util.log('Weather request started ...');
     util.log('city: ' + req.params.city);
     util.log('days: ' + req.params.count);
@@ -48,18 +60,47 @@ app.get("/weather/:city/:count", (req, res, next) => {
             return console.dir(error);
         }
         util.log('Weather request SUCCESS!');
-        //util.log('New Update!');
         res.send(body);
     });    
 });
 
-app.get("/api/testdata", (req, res, next) => {
+app.get("/test", (req, res, next) => {
     util.log('test request started ...');
 
-    var x = {"Date": new Date(), "Data": "some test data"};
-    
+    var x = {
+        "employees": [
+            {
+                "firstName": "John",
+                "lastName": "Doe"
+            },
+            {
+                "firstName": "Anna",
+                "lastName": "Smith"
+            },
+            {
+                "firstName": "Peter",
+                "lastName": "Jones"
+            }
+        ]
+    }
+
     res.send(x);
-});    
+
+
+    //util.log('city: ' + req.params.city);
+    //util.log('days: ' + req.params.count);
+    
+    //console.log("http://api.openweathermap.org/data/2.5/forecast/daily?APPID=c81efb4703a5b8a67e164eb272a8f462&units=metric&&cnt=" + req.params.count + "&q=" + req.params.city);
+    
+    // request.get("http://api.openweathermap.org/data/2.5/forecast/daily?APPID=c81efb4703a5b8a67e164eb272a8f462&units=metric&&cnt=" + req.params.count + "&q=" + req.params.city, (error, response, body) => {
+    //     if(error) {
+    //         util.log('Weather request ERROR!');
+    //         return console.dir(error);
+    //     }
+    //     util.log('Weather request SUCCESS!');
+    //     res.send(body);
+    // });    
+});
 
 app.post("/api/createpdf", (req, res, next) => {
     util.log('pdf test request started ...');
@@ -70,7 +111,7 @@ app.post("/api/createpdf", (req, res, next) => {
     console.log(dateTimeLog);
     console.log('-----');
 
-    var x = "html-pdf test<hr />"
+    var x = "pdf test"
 
     var html = x + dateTimeLog;
     var finalOptions = "";
@@ -81,6 +122,9 @@ app.post("/api/createpdf", (req, res, next) => {
     });    
 
 });
+
+
+
 
 // code from project
 function writeToPdf(html, options, callback) {
@@ -94,11 +138,11 @@ function writeToPdf(html, options, callback) {
 	pdf.create(html, options).toStream(callback);
 }
 
-// init
-var server = app.listen(3000, function () {
-   var host = server.address().address
-   var port = server.address().port
-   
-   console.log("\u001b[2J\u001b[0;0H");
-   console.log("WeatherAPI app listening at http://%s:%s", host, port)
-})
+
+ 
+ var server = app.listen(3000, function () {
+    var host = server.address().address
+    var port = server.address().port
+    
+    console.log("test webserver listening at http://%s:%s", host, port)
+ });
