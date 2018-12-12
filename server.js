@@ -66,7 +66,7 @@ app.post("/api/createpdf", (req, res, next) => {
 
     var x = "html-pdf test<hr /><h2>This is some html</h2>";
 
-    var html = x;
+    var html = x + data;
     var finalOptions = "";
 
     writeToPdf(html, finalOptions, function(err, stream) {
