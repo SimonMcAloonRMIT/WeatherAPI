@@ -48,24 +48,12 @@ app.get("/weather/:city/:count", (req, res, next) => {
     });    
 });
 
-app.get("/test", (req, res, next) => {
+app.get("/api/testdata", (req, res, next) => {
     util.log('test request started ...');
 
     var x = {
-        "employees": [
-            {
-                "firstName": "John",
-                "lastName": "Doe"
-            },
-            {
-                "firstName": "Anna",
-                "lastName": "Smith"
-            },
-            {
-                "firstName": "Peter",
-                "lastName": "Jones"
-            }
-        ]
+        "date": "currentDate",
+        "data": "this is some test data"
     }
 
     res.send(x);
