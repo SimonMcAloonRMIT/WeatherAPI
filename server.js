@@ -57,8 +57,12 @@ app.get("/api/testdata", (req, res, next) => {
     res.send(x);
 });    
 
-app.get("/api/createpdf", (req, res, next) => {
-    util.log('pdf test request started ...');
+app.post("/api/createpdf", (req, res, next) => {
+    let data = req.body;
+    
+    util.log(data);
+    
+    util.log('pdf test request');
 
     var x = "html-pdf test<hr /><h2>This is some html</h2>";
 
@@ -67,6 +71,7 @@ app.get("/api/createpdf", (req, res, next) => {
 
     writeToPdf(html, finalOptions, function(err, stream) {
         if (err) return res.status(500).send(err);
+        util.log("success!");
         stream.pipe(res);
     });    
 
