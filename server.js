@@ -70,9 +70,9 @@ app.post("/api/createpdf", (req, res, next) => {
     
     util.log('pdf test request');
 
-    var x = "html-pdf test<hr /><h2>This is some html</h2>";
+    var x = "<h2>html-pdf test</h2><hr /><h3>This is hard coded html</h2><br />";
 
-    var html = x;
+    var html = x + dateTimeLog;
     var finalOptions = "";
 
     writeToPdf(html, finalOptions, function(err, stream) {
