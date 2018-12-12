@@ -70,7 +70,7 @@ app.post("/api/createpdf", (req, res, next) => {
     console.log(dateTimeLog);
     console.log('-----');
 
-    var x = "pdf test"
+    var x = "html-pdf test<hr />"
 
     var html = x + dateTimeLog;
     var finalOptions = "";
