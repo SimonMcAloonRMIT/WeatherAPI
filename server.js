@@ -60,7 +60,7 @@ app.get("/api/testdata", (req, res, next) => {
 app.get("/api/createpdf", (req, res, next) => {
     util.log('pdf test request started ...');
 
-    var x = "pdf test"
+    var x = "html-pdf test<hr /><h2>This is some html</h2>";
 
     var html = x;
     var finalOptions = "";
